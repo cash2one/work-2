@@ -1,0 +1,4 @@
+<form action="doImportBook.htm" enctype="multipart/form-data" method="post" >
+	<input type="file" name="excel" />
+	<input type="submit" value="确定" />
+</form>

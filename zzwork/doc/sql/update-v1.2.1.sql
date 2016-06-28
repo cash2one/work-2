@@ -1,0 +1,1 @@
+ALTER TABLE `attendance_schedule_detail` CHANGE COLUMN `day` `day` DATETIME NULL DEFAULT NULL COMMENT '工作日';

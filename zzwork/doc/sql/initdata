@@ -1,0 +1,44 @@
+insert into auth_right(parent_id,name,content,l,r,menu,menu_url,menu_css)
+values (0,'主菜单','',1,8,'主菜单','#','');
+insert into auth_right(parent_id,name,content,l,r,menu,menu_url,menu_css)
+values (1,'个人信息','^/profile.act.*$',2,3,'个人信息','/profile.act','');
+insert into auth_right(parent_id,name,content,l,r,menu,menu_url,menu_css)
+values (1,'员工管理','^/staff/staff!.*$',4,5,'主菜单','/staff/staff!index.act','');
+insert into auth_right(parent_id,name,content,l,r,menu,menu_url,menu_css)
+values (1,'业务系统管理','^/bs/bs!.*',6,7,'业务系统管理','/bs/bs!index.act','');
+
+insert into auth_role(name,remark)
+values('dev','开发人员使用的角色');
+insert into auth_role(name,remark)
+values('admin','系统管理员');
+insert into auth_role(name,remark)
+values('manager','经理');
+insert into auth_role(name,remark)
+values('teamlead','主管');
+insert into auth_role(name,remark)
+values('staff','普通员工角色');
+
+insert into auth_role_right
+values(1,1),(2,1),(3,1),(4,1);
+insert into auth_role_right
+values(1,2),(2,2),(3,2),(4,2);
+insert into auth_role_right
+values(1,3),(2,3),(3,3);
+insert into auth_role_right
+values(1,4),(2,4);
+insert into auth_role_right
+values(1,5),(2,5);
+
+INSERT INTO `zzwork`.`auth_user` (`id`, `dept_id`, `username`, `password`, `email`, `gmt_created`, `gmt_login`, `blocked`, `steping`) 
+VALUES ('', '0', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@zz91.com', now(), now(), 0, 0);
+
+insert into auth_user_role 
+values(1,1);
+
+INSERT INTO `zzwork`.`auth_user` (`id`, `dept_id`, `username`, `password`, `email`, `gmt_created`, `gmt_login`, `blocked`, `steping`) 
+VALUES ('', '0', 'staff', '21232f297a57a5a743894a0e4a801fc3', 'staff@zz91.com', now(), now(), 0, 0);
+
+insert into auth_user_role 
+values(5,2);
+
+

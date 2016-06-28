@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+
+	<!-- common -->
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/common.xml"/>
+	
+	<!-- auth -->
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/auth/param.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/auth/auth_user.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/auth/auth_right.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/auth/auth_role.xml" />
+	
+	<!-- staff and bs -->
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/staff.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/bs.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/dept.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/feedback.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/scheduler_event.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/scheduler_report.xml" />
+	
+	<!-- hr -->
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/hr/attendance.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/hr/attendance_analysis.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/hr/attendance_schedule.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/hr/attendance_schedule_detail.xml" />
+	<!-- 
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/hr/attendanceCount.xml" />
+	 -->
+	 
+	<!-- book -->
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/book/book_relate_code.xml" />
+	<sqlMap resource="com/zz91/zzwork/desktop/ibatis/book/book.xml" />
+</sqlMapConfig>

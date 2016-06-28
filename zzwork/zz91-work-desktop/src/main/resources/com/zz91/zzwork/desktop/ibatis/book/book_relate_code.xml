@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="bookRelateCode">
+	<typeAlias alias="bookRelateCodeDO" type="com.zz91.zzwork.desktop.domain.book.BookRelateCode" />
+	<resultMap class="bookRelateCodeDO" id="bookRelateCodeResult">
+		<result column="id" property="id" />
+		<result column="book_id" property="bookId" />
+		<result column="code" property="code" />
+		<result column="is_out" property="isOut" />
+		<result column="gmt_created" property="gmtCreated" />
+		<result column="gmt_modified" property="gmtModified" />
+	</resultMap>
+
+	<sql id="defaultColumn">
+		id,
+		book_id,
+		code,
+		is_out,
+		gmt_created,
+		gmt_modified
+	</sql>
+
+	<insert id="insert" parameterClass="bookRelateCodeDO">
+		INSERT INTO
+		book_relate_code
+		(
+		`book_id`,
+		`code`,
+		`is_out`,
+		`gmt_created`,
+		`gmt_modified`)
+		VALUES
+		(
+		#bookId#,
+		#code#,
+		#isOut#,
+		now(),now()
+		)
+		<selectKey keyProperty="id" resultClass="java.lang.Integer">
+			select
+			last_insert_id()
+		</selectKey>
+	</insert>
+
+	<sql id="dynamicWhere">
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="bookRelateCode.bookId">
+				book_id =
+				#bookRelateCode.bookId#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+
+	<select id="queryList" parameterClass="java.util.Map" resultMap="bookRelateCodeResult">
+		SELECT
+		<include refid="defaultColumn" />
+		FROM book_relate_code
+		<include refid="dynamicWhere" />
+		<include refid="common.pageOrderBy" />
+		<include refid="common.pageLimit" />
+	</select>
+
+	<select id="queryCountList" parameterClass="java.util.Map"
+		resultClass="java.lang.Integer">
+		SELECT count(0)
+		FROM book_relate_code
+		<include refid="dynamicWhere" />
+	</select>
+
+	<update id="update" parameterClass="bookRelateCodeDO">
+		UPDATE
+		book_relate_code
+		SET
+		`gmt_modified` = now()
+		<isNotEmpty prepend="," property="code">
+			`code` = #code#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="isOut">
+			`is_out` = #isOut#,
+		</isNotEmpty>
+		WHERE id = #id#
+	</update>
+
+</sqlMap>

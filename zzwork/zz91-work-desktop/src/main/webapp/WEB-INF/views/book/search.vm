@@ -1,0 +1,60 @@
+<style type="text/css">
+ li {
+   display:inline;
+}
+</style>
+<div>
+	图书搜索
+    <form acction="welcome.htm">
+        <select>
+			<option>书名</option>
+		</select>
+		<input type="text" name="keywords" />
+		<input type="submit" value="点击搜索"/>
+	</form>
+	<div>
+##		<table border="1">
+##			#foreach($obj in $page.records)
+##				<tr>
+##					<td>$obj.name</td>
+##					<td>$obj.name</td>
+##					<td>$obj.name</td>
+##				</tr>
+##			#end
+##		</table>
+	</div>
+	<br/>
+	#foreach($obj in $page.records)
+    	<div>
+    		<!-- 图片 & 借书按钮 -->
+    		<div style="float:left;margin-left:8px">
+    			<img src="$!{address.thumb}$!{address.img}/$!{obj.picCover}" width="85" height="120">
+    			<br/>
+    			<input type="button" value="预约借书">
+    		</div>
+    		<div style="float:left;margin-left:8px">
+    			<p><b style="color:red">$!{obj.book.name}</b></p>
+    			<p>作者：<span style="color:blue">$!{obj.book.author}</span></p>
+    			<p>出版社：<span style="color:blue">$!{obj.book.press}</span></p>
+    			<p>文献类型：$!{obj.book.type} </p>
+    			<br/>
+    			##<p>在馆信息：#if($!{obj.isOut}=="0")在库</p>
+    			<div style="padding:5px;">
+					<ul>
+						<li><input type="button" value="在馆信息" /></li>
+					</ul>
+    				<ul>
+    					<li>同名索书号(是否在库)</li>
+    				</ul>
+					#foreach($relate in $obj.relateList)
+						<ul>
+							<li>$!{relate.code}</li>
+							<li>&nbsp;|&nbsp;#if($!{relate.isOut}==1) 出库#else 在库#end</li>
+						</ul>
+					#end
+    			</div>
+    		</div>
+    	</div>
+    	<div style="clear:both;border-top: 2px dashed #ccc;"></div>
+	#end
+</div>

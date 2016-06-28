@@ -1,0 +1,7 @@
+分支说明：
+
+master：
+主要工作分支，包含最新util,work-desktop
+
+release-work-hunlimama:
+专为hunlimama准备的分支，不合并回master

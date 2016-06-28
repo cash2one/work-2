@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="book">
+	<typeAlias alias="bookDO" type="com.zz91.zzwork.desktop.domain.book.Book" />
+	<resultMap class="bookDO" id="bookResult">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="author" property="author" />
+		<result column="type" property="type" />
+		<result column="press" property="press" />
+		<result column="donate_person" property="donatePerson" />
+		<result column="donate_depart" property="donateDepart" />
+		<result column="donate_time" property="donateTime" />
+		<result column="gmt_created" property="gmtCreated" />
+		<result column="gmt_modified" property="gmtModified" />
+		<result column="pic_cover" property="picCover" />
+	</resultMap>
+
+	<sql id="defaultColumn">
+		id,
+		name,
+		author,
+		type,
+		press,
+		donate_person,
+		donate_depart,
+		donate_time,
+		gmt_created,
+		gmt_modified,
+		pic_cover
+	</sql>
+
+	<insert id="insert" parameterClass="bookDO">
+		INSERT INTO `book`
+		(
+		`name`,
+		`author`,
+		`type`,
+		`press`,
+		`donate_person`,
+		`donate_depart`,
+		`donate_time`,
+		`gmt_created`,
+		`gmt_modified`,
+		pic_cover)
+		VALUES
+		(
+		#name#,
+		#author#,
+		#type#,
+		#press#,
+		#donatePerson#,
+		#donateDepart#,
+		#donateTime#,
+		now(),
+		now(),
+		#picCover#
+		)
+		<selectKey keyProperty="id" resultClass="java.lang.Integer">
+			select
+			last_insert_id()
+		</selectKey>
+	</insert>
+
+	<sql id="dynamicWhere">
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="book.name">
+				name like concat('%',#book.name#,'%')
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+
+	<select id="queryList" parameterClass="java.util.Map" resultMap="bookResult">
+		SELECT
+		<include refid="defaultColumn"/>
+		FROM book
+		<include refid="dynamicWhere"/>
+		<include refid="common.pageOrderBy" />
+		<include refid="common.pageLimit" />
+	</select>
+
+	<select id="queryCountList" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT count(0)
+		FROM book
+		<include refid="dynamicWhere"/>
+	</select>
+
+	<update id="update" parameterClass="bookDO">
+		UPDATE book
+		SET
+		gmt_modified = now()
+		<isNotEmpty prepend="," property="name">
+			name = #name#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="author">
+			author = #author#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="type">
+			type = #type#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="press">
+			press = #press#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="donatePerson">
+			donate_person = #donatePerson#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="donateDepart">
+			donate_depart = #donateDepart#
+		</isNotEmpty>
+		<isNotNull prepend="," property="donateTime">
+			donate_time = #donateTime#
+		</isNotNull>
+		<isNotEmpty prepend="," property="picCover">
+			pic_cover = #picCover#
+		</isNotEmpty>
+		WHERE id = #id#
+	</update>
+	
+	<select id="queryOne" parameterClass="java.lang.Integer" resultMap="bookResult">
+		select 
+		<include refid="defaultColumn"/>
+		from book
+		where id = #value#
+	</select>
+	
+
+</sqlMap>
